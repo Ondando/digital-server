@@ -15,7 +15,6 @@ import { VendorProductModule } from './vendor_product/vendor_product.module';
 import { ProductModule } from './product/product.module';
 import { ProductTypeModule } from './product_type/product_type.module';
 import { CategoryModule } from './category/category.module';
-import { UserRoleModule } from './user_role/user_role.module';
 import { VendorModule } from './vendor/vendor.module';
 import { RoleModule } from './role/role.module';
 
@@ -34,7 +33,6 @@ import { RoleModule } from './role/role.module';
     }),
     UserModule,
     RoleModule,
-    UserRoleModule,
     VendorModule,
     CategoryModule,
     ProductTypeModule,

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 // Define the AssetType collection
-const assetTypeSchema = new mongoose.Schema({
+const productAssetSchema = new mongoose.Schema({
   name: { type: String, enum: ['IMAGE', 'VIDEO'], required: true },
 });
 
@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   firstName: String,
   lastName: String,
-  roles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserRole' }],
+  roles: [{ type: String, enum: ['user', 'admin', 'vendor'] }],
   vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendor' },
   orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
 });
@@ -297,7 +297,7 @@ const vendorBankAccountSchema = new mongoose.Schema({
   ],
 });
 
-const AssetType = mongoose.model('AssetType', assetTypeSchema);
+const ProductAsset = mongoose.model('ProductAsset', productAssetSchema);
 const OrderStatus = mongoose.model('OrderStatus', orderStatusSchema);
 const PaymentStatus = mongoose.model('PaymentStatus', paymentStatusSchema);
 const PayoutStatus = mongoose.model('PayoutStatus', payoutStatusSchema);
@@ -320,7 +320,7 @@ const VendorBankAccount = mongoose.model(
 );
 
 export {
-  AssetType,
+  ProductAsset,
   OrderStatus,
   PaymentStatus,
   PayoutStatus,

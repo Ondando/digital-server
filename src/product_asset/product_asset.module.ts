@@ -4,6 +4,6 @@ import { ProductAssetController } from './product_asset.controller';
 
 @Module({
   providers: [ProductAssetService],
-  controllers: [ProductAssetController]
+  controllers: [ProductAssetController],
 })
 export class ProductAssetModule {}

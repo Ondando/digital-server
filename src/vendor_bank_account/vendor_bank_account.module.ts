@@ -4,6 +4,6 @@ import { VendorBankAccountController } from './vendor_bank_account.controller';
 
 @Module({
   providers: [VendorBankAccountService],
-  controllers: [VendorBankAccountController]
+  controllers: [VendorBankAccountController],
 })
 export class VendorBankAccountModule {}
