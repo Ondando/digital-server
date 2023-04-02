@@ -1,23 +1,41 @@
-import mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose, { Document } from 'mongoose';
 
-const productSchema = new mongoose.Schema({
-  productType: {
+@Schema()
+export class Product extends Document {
+  @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ProductType',
     required: true,
-  },
-  category: {
+  })
+  productType: mongoose.Schema.Types.ObjectId;
+
+  @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
     required: true,
-  },
-  name: { type: String, unique: true, required: true },
-  shortDescription: { type: String, required: true },
-  longDescription: { type: String, required: true },
-  vendorProducts: [
-    { type: mongoose.Schema.Types.ObjectId, ref: 'VendorProduct' },
-  ],
-  assets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProductAsset' }],
-});
+  })
+  category: mongoose.Schema.Types.ObjectId;
 
-export const Product = mongoose.model('Product', productSchema);
+  @Prop({ unique: true, required: true })
+  name: string;
+
+  @Prop({ required: true })
+  shortDescription: string;
+
+  @Prop({ required: true })
+  longDescription: string;
+
+  @Prop([
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'VendorProduct',
+    },
+  ])
+  vendorProducts: mongoose.Schema.Types.ObjectId[];
+
+  @Prop([String])
+  assets: string[];
+}
+
+export const ProductSchema = SchemaFactory.createForClass(Product);

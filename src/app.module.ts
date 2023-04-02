@@ -4,7 +4,6 @@ import { ConfigModule } from '@nestjs/config';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
-import { ProductAssetModule } from './product_asset/product_asset.module';
 import { VendorBankAccountModule } from './vendor_bank_account/vendor_bank_account.module';
 import { PayoutModule } from './payout/payout.module';
 import { PaymentModule } from './payment/payment.module';
@@ -16,7 +15,6 @@ import { ProductModule } from './product/product.module';
 import { ProductTypeModule } from './product_type/product_type.module';
 import { CategoryModule } from './category/category.module';
 import { VendorModule } from './vendor/vendor.module';
-import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [
@@ -32,7 +30,6 @@ import { RoleModule } from './role/role.module';
       },
     }),
     UserModule,
-    RoleModule,
     VendorModule,
     CategoryModule,
     ProductTypeModule,
@@ -44,7 +41,6 @@ import { RoleModule } from './role/role.module';
     PaymentModule,
     PayoutModule,
     VendorBankAccountModule,
-    ProductAssetModule,
   ],
   controllers: [AppController],
   providers: [AppService],

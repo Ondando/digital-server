@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "ffb6a50c-484e-43ac-a5a7-1b3a0dd076d5",
+		"name": "Product",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24746938"
+	},
+	"item": [
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productType\": \"61fae8cde77e704e6d03213c\",\n    \"category\": \"61fae8cde77e704e6d03213d\",\n    \"name\": \"Product 1\",\n    \"shortDescription\": \"Short description of Product 1\",\n    \"longDescription\": \"Long description of Product 1\",\n    \"vendorProducts\": [],\n    \"assets\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/product/6428f64417f263b15dd2441e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product",
+						"6428f64417f263b15dd2441e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product by Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/product/name/Product 1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product",
+						"name",
+						"Product 1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Updated Product 1\",\n    \"shortDescription\": \"Updated short description of Product 1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/product/6428f64417f263b15dd2441e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"product",
+						"6428f64417f263b15dd2441e"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
