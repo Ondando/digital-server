@@ -4,20 +4,20 @@ import { ConfigModule } from '@nestjs/config';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
-import { RoleModule } from './role/role.module';
-import { UserRoleModule } from './user-role/user-role.module';
-import { VendorModule } from './vendor/vendor.module';
-import { CategoryModule } from './category/category.module';
-import { ProductTypeModule } from './product-type/product-type.module';
-import { ProductModule } from './product/product.module';
-import { VendorProductModule } from './vendor-product/vendor-product.module';
-import { OrderModule } from './order/order.module';
-import { OrderItemModule } from './order-item/order-item.module';
-import { BankAccountModule } from './bank-account/bank-account.module';
-import { PaymentModule } from './payment/payment.module';
+import { ProductAssetModule } from './product_asset/product_asset.module';
+import { VendorBankAccountModule } from './vendor_bank_account/vendor_bank_account.module';
 import { PayoutModule } from './payout/payout.module';
-import { VendorBankAccountModule } from './vendor-bank-account/vendor-bank-account.module';
-import { ProductAssetModule } from './product-asset/product-asset.module';
+import { PaymentModule } from './payment/payment.module';
+import { BankAccountModule } from './bank_account/bank_account.module';
+import { OrderItemModule } from './order_item/order_item.module';
+import { OrderModule } from './order/order.module';
+import { VendorProductModule } from './vendor_product/vendor_product.module';
+import { ProductModule } from './product/product.module';
+import { ProductTypeModule } from './product_type/product_type.module';
+import { CategoryModule } from './category/category.module';
+import { UserRoleModule } from './user_role/user_role.module';
+import { VendorModule } from './vendor/vendor.module';
+import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [
