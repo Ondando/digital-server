@@ -1,14 +1,30 @@
-import mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose, { Document } from 'mongoose';
 
-// Define the User collection
-const userSchema = new mongoose.Schema({
-  email: { type: String, unique: true, required: true },
-  password: { type: String, required: true },
-  firstName: String,
-  lastName: String,
-  roles: [{ type: String, enum: ['user', 'admin', 'vendor'] }],
-  vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendor' },
-  orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
-});
+export type UserDocument = User & Document;
 
-export const User = mongoose.model('User', userSchema);
+@Schema()
+export class User {
+  @Prop({ type: String, unique: true, required: true })
+  email: string;
+
+  @Prop({ type: String, required: true })
+  password: string;
+
+  @Prop()
+  firstName: string;
+
+  @Prop()
+  lastName: string;
+
+  @Prop([{ type: String, enum: ['user', 'admin', 'vendor'] }])
+  roles: string[];
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Vendor' })
+  vendor: mongoose.Types.ObjectId;
+
+  @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }])
+  orders: mongoose.Types.ObjectId[];
+}
+
+export const UserSchema = SchemaFactory.createForClass(User);
