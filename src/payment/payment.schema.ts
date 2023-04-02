@@ -1,35 +1,33 @@
-import mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import mongoose, { Document } from 'mongoose';
+import { Order } from '../order/order.schema';
+import { BankAccount } from '../bank_account/bank_account.schema';
 
-// Define the mongoose.Schema for the Payment type
-const paymentSchema = new mongoose.Schema({
-  order: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Order',
-    required: true,
-  },
-  bankAccount: {
+export type PaymentDocument = Payment & Document;
+
+@Schema()
+export class Payment {
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Order', required: true })
+  order: Order;
+
+  @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'BankAccount',
     required: true,
-  },
-  transactionId: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  amount: {
-    type: Number,
-    required: true,
-  },
-  paymentDate: {
-    type: Date,
-    required: true,
-  },
-  status: {
-    type: String,
-    enum: ['PENDING', 'COMPLETED', 'FAILED'],
-    required: true,
-  },
-});
+  })
+  bankAccount: BankAccount;
 
-export const Payment = mongoose.model('Payment', paymentSchema);
+  @Prop({ unique: true, required: true })
+  transactionId: string;
+
+  @Prop({ required: true })
+  amount: number;
+
+  @Prop({ type: Date, required: true })
+  paymentDate: Date;
+
+  @Prop({ enum: ['PENDING', 'COMPLETED', 'FAILED'], required: true })
+  status: string;
+}
+
+export const PaymentSchema = SchemaFactory.createForClass(Payment);

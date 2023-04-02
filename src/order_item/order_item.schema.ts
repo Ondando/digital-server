@@ -1,25 +1,21 @@
-import mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
+import { Order } from '../order/order.schema';
+import { Product } from '../product/product.schema';
 
-// Define the mongoose.Schema for the OrderItem type
-const orderItemSchema = new mongoose.Schema({
-  order: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Order',
-    required: true,
-  },
-  product: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product',
-    required: true,
-  },
-  quantity: {
-    type: Number,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-  },
-});
+@Schema()
+export class OrderItem extends Document {
+  @Prop({ type: Types.ObjectId, ref: 'Order', required: true })
+  order: Order;
 
-export const OrderItem = mongoose.model('OrderItem', orderItemSchema);
+  @Prop({ type: Types.ObjectId, ref: 'Product', required: true })
+  product: Product;
+
+  @Prop({ type: Number, required: true })
+  quantity: number;
+
+  @Prop({ type: Number, required: true })
+  price: number;
+}
+
+export const OrderItemSchema = SchemaFactory.createForClass(OrderItem);
