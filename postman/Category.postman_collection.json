@@ -1,0 +1,93 @@
+{
+  "info": {
+    "_postman_id": "16bae74a-24af-4b37-a6b1-6ba34b882c36",
+    "name": "Category API",
+    "description": "API endpoints for managing categories",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Category",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Electronics\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/category",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["category"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Category by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/category/609d0c1ef33ca0596e00c6bf",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["category", "609d0c1ef33ca0596e00c6bf"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Category",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Computers\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/category/609d0c1ef33ca0596e00c6bf",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["category", "609d0c1ef33ca0596e00c6bf"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Category",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/category/609d0c1ef33ca0596e00c6bf",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["category", "<CATEGORY_ID>"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

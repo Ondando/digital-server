@@ -1,9 +1,16 @@
-import mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
+import { Product } from '../product/product.schema';
 
-// Define the Category collection
-const categorySchema = new mongoose.Schema({
-  name: { type: String, unique: true, required: true },
-  products: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
-});
+export type CategoryDocument = Category & Document;
 
-export const Category = mongoose.model('Category', categorySchema);
+@Schema()
+export class Category {
+  @Prop({ unique: true, required: true })
+  name: string;
+
+  @Prop({ type: [{ type: Types.ObjectId, ref: 'Product' }] })
+  products: Product[];
+}
+
+export const CategorySchema = SchemaFactory.createForClass(Category);
