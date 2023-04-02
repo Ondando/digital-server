@@ -17,7 +17,7 @@ export class User {
   @Prop()
   lastName: string;
 
-  @Prop([{ type: String, enum: ['user', 'admin', 'vendor'] }])
+  @Prop([{ type: String, enum: ['user', 'admin', 'vendor'], default: 'user' }])
   roles: string[];
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Vendor' })

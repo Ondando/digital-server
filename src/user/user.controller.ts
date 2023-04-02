@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.schema';
@@ -32,6 +33,16 @@ export class UserController {
   @Get(':id')
   async getUserById(@Param('id') id: string): Promise<User | null> {
     return this.userService.findById(id);
+  }
+
+  /**
+   * Get a user by their EMAIL
+   * @param {string} email - The EMAIL of the user
+   * @returns {Promise<User | null>} - The found user object or null if not found
+   */
+  @Get('email/:email')
+  async getUserByEmail(@Param('email') email: string): Promise<User | null> {
+    return this.userService.findByEmail(email);
   }
 
   /**
