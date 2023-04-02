@@ -1,0 +1,151 @@
+# Define the types of assets
+enum AssetType {
+  IMAGE # An image file
+  VIDEO # A video file
+}
+
+# Define the possible status of an order
+enum OrderStatus {
+  PENDING # The order has been placed but is awaiting processing
+  PROCESSING # The order is currently being processed
+  COMPLETED # The order has been completed and delivered
+  CANCELED # The order has been canceled
+}
+
+# Define the possible payment status of an order
+enum PaymentStatus {
+  PENDING # The payment is awaiting processing
+  COMPLETED # The payment has been completed and confirmed
+  FAILED # The payment has failed
+}
+
+# Define the possible payout status of a vendor payout
+enum PayoutStatus {
+  PENDING # The payout is awaiting processing
+  COMPLETED # The payout has been completed and confirmed
+  FAILED # The payout has failed
+}
+
+# Define a user
+type User {
+  email: String! @unique # The user's email (must be unique)
+  password: String! # The user's password
+  firstName: String # The user's first name
+  lastName: String # The user's last name
+  roles: [UserRole!] @relation # The user's roles
+  vendor: Vendor @relation # The vendor associated with the user (if any)
+  orders: [Order!] @relation # The orders placed by the user
+}
+
+# Define a role
+type Role {
+  roleName: String! @unique # The name of the role (must be unique)
+  users: [UserRole!] @relation # The users with the role
+}
+
+# Define the relationship between a user and a role
+type UserRole {
+  user: User! @relation # The user with the role
+  role: Role! @relation # The role of the user
+}
+
+# Define a vendor
+type Vendor {
+  user: User! @relation # The user associated with the vendor
+  vendorName: String! @unique # The name of the vendor (must be unique)
+  contactEmail: String # The email contact for the vendor
+  phoneNumber: String # The phone number contact for the vendor
+  vendorProducts: [VendorProduct!] @relation # The products offered by the vendor
+  vendorBankAccount: VendorBankAccount @relation # The bank account of the vendor
+  balance: Float! # The current balance of the vendor
+}
+
+# Define a category for products
+type Category {
+  name: String! @unique # The name of the category (must be unique)
+  products: [Product!] @relation # The products in the category
+}
+
+# Define a type of product
+type ProductType {
+  name: String! @unique # The name of the product type (must be unique)
+  products: [Product!] @relation # The products of the product type
+}
+
+# Define a product
+type Product {
+  productType: ProductType! @relation # The type of product
+  category: Category! @relation # The category of the product
+  name: String! @unique # The name of the product (must be unique)
+  shortDescription: String! # A short description of the product
+  longDescription: String! # A long description of the product
+  vendorProducts: [VendorProduct!] @relation # The products offered by vendors
+  assets: [ProductAsset!] @relation # The assets associated with the product (e.g. images, videos)
+}
+
+# Define a vendor product
+type VendorProduct {
+  vendor: Vendor! @relation # the vendor who sells this product
+  product: Product! @relation # the product being sold
+  digitalKey: String! # unique key used to download the product
+  price: Float! # the price of the product
+}
+
+type Order {
+  user: User! @relation # the user who placed the order
+  status: OrderStatus! # the status of the order
+  totalAmount: Float! # the total amount of the order
+  orderItems: [OrderItem!] @relation # the items in the order
+  payment: Payment @relation # the payment for the order
+}
+
+type OrderItem {
+  order: Order! @relation # the order containing this item
+  product: Product! @relation # the product being ordered
+  quantity: Int! # the quantity of the product being ordered
+  price: Float! # the price of the product in this order
+}
+
+type BankAccount {
+  accountHolderName: String! # the name of the account holder
+  bankName: String! # the name of the bank
+  accountNumber: String! @unique # the account number (unique)
+  branchCode: String # the branch code (optional)
+  swiftCode: String # the SWIFT code (optional)
+  iban: String # the IBAN number (optional)
+}
+
+type Payment {
+  order: Order! @relation # the order being paid for
+  bankAccount: BankAccount! @relation # the bank account used for payment
+  transactionId: String! @unique # the ID of the payment transaction (unique)
+  amount: Float! # the amount paid
+  paymentDate: String! # the date of the payment
+  status: PaymentStatus! # the status of the payment
+}
+
+type Payout {
+  vendor: Vendor! @relation # the vendor being paid out
+  vendorBankAccount: VendorBankAccount! @relation # the vendor's bank account
+  amount: Float! # the amount being paid out
+  paymentDate: String! # the date of the payout
+  status: PayoutStatus! # the status of the payout
+}
+
+type VendorBankAccount {
+  vendor: Vendor! @relation # the vendor who owns this bank account
+  accountHolderName: String! # the name of the account holder
+  bankName: String! # the name of the bank
+  accountNumber: String! @unique # the account number (unique)
+  branchCode: String # the branch code (optional)
+  swiftCode: String # the SWIFT code (optional)
+  iban: String # the IBAN number (optional)
+  payouts: [Payout!] @relation # the payouts made to this bank account
+}
+
+type ProductAsset {
+  product: Product! @relation # the product associated with this asset
+  name: String! # the name of the asset
+  url: String! # the URL of the asset
+  assetType: AssetType! # the type of the asset (e.g. image or video)
+}
