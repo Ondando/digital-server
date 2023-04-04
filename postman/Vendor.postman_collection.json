@@ -1,0 +1,112 @@
+{
+  "info": {
+    "_postman_id": "5d5e6ec5-6e5d-4d7d-b9da-4b61f81b4d4f",
+    "name": "Vendor API",
+    "description": "API endpoints for managing vendors",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exported_at": "2022-04-07T15:28:55.140Z",
+    "owner": "your-email@example.com"
+  },
+  "item": [
+    {
+      "name": "Create Vendor",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"vendorName\": \"ACME Inc.\",\n    \"balance\": 0,\n    \"user\": \"<USER_ID>\",\n    \"contactEmail\": \"acme@example.com\",\n    \"phoneNumber\": \"123-456-7890\",\n    \"vendorBankAccount\": \"<BANK_ACCOUNT_ID>\",\n    \"vendorProducts\": [\n        \"<VENDOR_PRODUCT_ID>\"\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/vendors",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["vendors"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Vendors",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/vendors",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["vendors"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Vendor by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/vendors/<VENDOR_ID>",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["vendors", "<VENDOR_ID>"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Vendor",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"contactEmail\": \"new-email@example.com\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          },
+          "description": "",
+          "name": "Create Vendor",
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(`Status code is 201`, function () {",
+                  " pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test(`Response should be a JSON object`, function () {",
+                  " pm.response.to.be.json;",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,42 +1,34 @@
-import mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
+import { Vendor } from '../vendor/vendor.schema';
+import { Payout } from '../payout/payout.schema';
 
-const vendorBankAccountSchema = new mongoose.Schema({
-  vendor: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vendor',
-    required: true,
-  },
-  accountHolderName: {
-    type: String,
-    required: true,
-  },
-  bankName: {
-    type: String,
-    required: true,
-  },
-  accountNumber: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  branchCode: {
-    type: String,
-  },
-  swiftCode: {
-    type: String,
-  },
-  iban: {
-    type: String,
-  },
-  payouts: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Payout',
-    },
-  ],
-});
+@Schema()
+export class VendorBankAccount extends Document {
+  @Prop({ type: Types.ObjectId, ref: Vendor.name, required: true })
+  vendor: Vendor;
 
-export const VendorBankAccount = mongoose.model(
-  'VendorBankAccount',
-  vendorBankAccountSchema,
-);
+  @Prop({ required: true })
+  accountHolderName: string;
+
+  @Prop({ required: true })
+  bankName: string;
+
+  @Prop({ unique: true, required: true })
+  accountNumber: string;
+
+  @Prop()
+  branchCode?: string;
+
+  @Prop()
+  swiftCode?: string;
+
+  @Prop()
+  iban?: string;
+
+  @Prop({ type: [{ type: Types.ObjectId, ref: Payout.name }] })
+  payouts?: Payout[];
+}
+
+export const VendorBankAccountSchema =
+  SchemaFactory.createForClass(VendorBankAccount);
